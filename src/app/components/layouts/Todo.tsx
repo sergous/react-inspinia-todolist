@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import Header from '../Header';
 import MainSection from '../MainSection';
 import {addTodo, deleteTodo, editTodo, completeTodo, completeAll, clearCompleted} from '../../actions/index';
-// import 'todomvc-app-css/index.css';
+import './todo.scss';
 
 interface IAppProps {
   todos?: any[];
@@ -25,14 +25,16 @@ class Todo extends React.Component<IAppProps, IAppState> {
   render() {
     const {todos, actions} = this.props;
     return (
-      <div>
-        <Header
-          addTodo={actions.addTodo}
-          />
-        <MainSection
-          todos={todos}
-          actions={actions}
-          />
+      <div className='todo'>
+          <div className='todoapp'>
+            <Header
+              addTodo={actions.addTodo}
+              />
+            <MainSection
+              todos={todos}
+              actions={actions}
+              />
+          </div>
       </div>
     );
   }
