@@ -44,6 +44,7 @@ function mapStateToProps(state: any) {
 }
 
 function mapDispatchToProps(dispatch: IDispatch) {
+  // noinspection TypeScriptValidateTypes
   return {
     actions: bindActionCreators({
       addTodo,

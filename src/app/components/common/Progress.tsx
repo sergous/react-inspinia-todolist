@@ -1,4 +1,4 @@
-/// <reference path="../../../../typings/index.d.ts" />
+/// <reference path='../../../../typings/index.d.ts' />
 
 import * as React from 'react';
 import pace from 'pace';
@@ -12,9 +12,9 @@ class Progress extends React.Component<IProgressProps, IProgressState> {
     }
 
     render() {
-        return (null)
+        return (null);
     }
 }
 
-export default Progress
+export default Progress;
 

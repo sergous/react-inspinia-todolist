@@ -16,9 +16,9 @@ interface IFooterProps {
   filter: string;
   onClearCompleted: () => void;
   onShow: (filter: string) => void;
-};
+}
 
-interface IFooterState {};
+interface IFooterState {}
 
 class Footer extends React.Component<IFooterProps, IFooterState> {
   static propTypes = {

@@ -1,4 +1,4 @@
-/// <reference path="../../../../typings/index.d.ts" />
+/// <reference path='../../../../typings/index.d.ts' />
 
 import * as $ from 'jquery';
 
@@ -9,39 +9,39 @@ export function correctHeight() {
     var wrapperHeigh = pageWrapper.height();
 
     if (navbarHeigh > wrapperHeigh) {
-        pageWrapper.css("min-height", navbarHeigh + "px");
+        pageWrapper.css('min-height', navbarHeigh + 'px');
     }
 
     if (navbarHeigh < wrapperHeigh) {
         if (navbarHeigh < $(window).height()) {
-            pageWrapper.css("min-height", $(window).height() + "px");
+            pageWrapper.css('min-height', $(window).height() + 'px');
         } else {
-            pageWrapper.css("min-height", navbarHeigh + "px");
+            pageWrapper.css('min-height', navbarHeigh + 'px');
         }
     }
 
     if ($('body').hasClass('fixed-nav')) {
         if (navbarHeigh > wrapperHeigh) {
-            pageWrapper.css("min-height", navbarHeigh + "px");
+            pageWrapper.css('min-height', navbarHeigh + 'px');
         } else {
-            pageWrapper.css("min-height", $(window).height() - 60 + "px");
+            pageWrapper.css('min-height', $(window).height() - 60 + 'px');
         }
     }
 }
 
 export function detectBody() {
     if ($(document).width() < 769) {
-        $('body').addClass('body-small')
+        $('body').addClass('body-small');
     } else {
-        $('body').removeClass('body-small')
+        $('body').removeClass('body-small');
     }
 }
 
 export function smoothlyMenu() {
     if (!$('body').hasClass('mini-navbar') || $('body').hasClass('body-small')) {
-        // Hide menu in order to smoothly turn on when maximize menu
+        // hide menu in order to smoothly turn on when maximize menu
         $('#side-menu').hide();
-        // For smoothly turn on menu
+        // hor smoothly turn on menu
         setTimeout(
             function () {
                 $('#side-menu').fadeIn(400);
@@ -53,7 +53,7 @@ export function smoothlyMenu() {
                 $('#side-menu').fadeIn(400);
             }, 100);
     } else {
-        // Remove all inline style from jquery fadeIn function to reset menu state
+        // remove all inline style from jquery fadeIn function to reset menu state
         $('#side-menu').removeAttr('style');
     }
 }

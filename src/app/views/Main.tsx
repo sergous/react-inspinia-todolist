@@ -1,4 +1,4 @@
-/// <reference path="../../../typings/index.d.ts" />
+/// <reference path='../../../typings/index.d.ts' />
 
 import * as React from 'react';
 
@@ -9,10 +9,10 @@ class Main extends React.Component<IMainViewProps, IMainViewState> {
 
     render() {
         return (
-            <div className="wrapper wrapper-content animated fadeInRight">
-                <div className="row">
-                    <div className="col-lg-12">
-                        <div className="text-center m-t-lg">
+            <div className='wrapper wrapper-content animated fadeInRight'>
+                <div className='row'>
+                    <div className='col-lg-12'>
+                        <div className='text-center m-t-lg'>
                             <h1>
                                 Welcome in INSPINIA ReactJS Seed Project
                             </h1>
@@ -23,9 +23,9 @@ class Main extends React.Component<IMainViewProps, IMainViewState> {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 
 }
 
-export default Main
+export default Main;
