@@ -5,7 +5,6 @@
     "classnames": "^2.2.5",
     "dom-tools": "^0.1.4",
     "es6-shim": "^0.35.0",
-    "file-loader": "^0.9.0",
     "font-awesome": "^4.6.1",
     "history": "^3.0.0",
     "jquery": "^2.2.4",
@@ -18,11 +17,11 @@
     "react-pace": "^1.0.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.0",
-    "redux": "^3.5.1",
-    "todomvc-app-css": "^2.0.4",
-    "url-loader": "^0.5.7"
+    "redux": "^3.5.1"
   },
   "devDependencies": {
+    "file-loader": "^0.9.0",
+    "url-loader": "^0.5.7",
     "react-addons-test-utils": "^15.0.1",
     "del": "^2.0.2",
     "gulp": "gulpjs/gulp#4ed9a4a3275559c73a396eff7e1fde3824951ebb",
