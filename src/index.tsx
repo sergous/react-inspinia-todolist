@@ -8,6 +8,7 @@ import configureStore from './app/store/configureStore';
 import {Router, browserHistory} from 'react-router';
 import routes from './app/config/routes';
 import 'todomvc-app-css/index.css';
+import './inspinia.css';
 
 const store: IStore<any> = configureStore({});
 
