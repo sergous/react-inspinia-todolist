@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
   module: {
     preLoaders: [
@@ -21,10 +23,39 @@ module.exports = {
         loaders: [
           'ts'
         ]
+      },
+      {
+          test: /\.(css|scss)$/,
+          loaders: [
+              'style',
+              'css',
+              'sass',
+              'postcss'
+          ]
+      },
+      {
+          test: /\.(png|jpg|gif)(\?v=\d+\.\d+\.\d+)?$/,
+          loader: 'url-loader?limit=100000'
+      },
+      {
+          test: /\.(eot|com|json|ttf|woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+          loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+      },
+      {
+          test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+          loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
       }
     ]
   },
-  plugins: [],
+  plugins: [
+      new webpack.ProvidePlugin({
+          '$': "jquery",
+          'jQuery': "jquery",
+          'window.jQuery': "jquery",
+          'window.$': 'jquery'
+
+      })
+  ],
   debug: true,
   devtool: 'source-map',
   resolve: {
