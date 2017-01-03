@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as $ from 'jquery';
 // import { Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router';
+import 'metismenu';
 
 interface INavigationProps {
     location: any;
