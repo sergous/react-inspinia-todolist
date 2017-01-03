@@ -1,12 +1,13 @@
-/// <reference path="../../../typings/index.d.ts" />
+/// <reference path="../../../../typings/index.d.ts" />
 
 import * as React from 'react';
 import {IDispatch} from '~react-redux~redux';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import Header from '../components/Header';
-import MainSection from '../components/MainSection';
-import {addTodo, deleteTodo, editTodo, completeTodo, completeAll, clearCompleted} from '../actions/index';
+import Header from '../Header';
+import MainSection from '../MainSection';
+import {addTodo, deleteTodo, editTodo, completeTodo, completeAll, clearCompleted} from '../../actions/index';
+// import 'todomvc-app-css/index.css';
 
 interface IAppProps {
   todos?: any[];
@@ -15,7 +16,7 @@ interface IAppProps {
 
 interface IAppState {}
 
-class App extends React.Component<IAppProps, IAppState> {
+class Todo extends React.Component<IAppProps, IAppState> {
   static propTypes = {
     todos: React.PropTypes.array.isRequired,
     actions: React.PropTypes.object.isRequired
@@ -60,4 +61,4 @@ function mapDispatchToProps(dispatch: IDispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(Todo);
