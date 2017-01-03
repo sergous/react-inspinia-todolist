@@ -38,6 +38,18 @@ module.exports = {
           'react-hot',
           'ts'
         ]
+      },
+      {
+          test: /\.(png|jpg|gif)(\?v=\d+\.\d+\.\d+)?$/,
+          loader: 'url-loader?limit=100000'
+      },
+      {
+          test: /\.(eot|com|json|ttf|woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+          loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+      },
+      {
+          test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+          loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
       }
     ]
   },
