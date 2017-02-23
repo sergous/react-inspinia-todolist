@@ -40,6 +40,13 @@ module.exports = {
         ]
       },
       {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loaders: [
+          'ts'
+        ]
+      },
+      {
           test: /\.(png|jpg|gif)(\?v=\d+\.\d+\.\d+)?$/,
           loader: 'url-loader?limit=100000'
       },
