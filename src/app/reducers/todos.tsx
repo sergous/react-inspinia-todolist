@@ -38,7 +38,7 @@ function removeTodo(todo: Todo): Object {
 
 const initialState = getTodos() || [saveTodo( new Todo({text: 'Use Redux'}) )];
 
-export default function todos(state: any = initialState, action: any) {
+export default function  todos(state: any = initialState, action: any) {
   switch (action.type) {
     case ADD_TODO:
       return [

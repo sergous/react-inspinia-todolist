@@ -25,6 +25,13 @@ module.exports = {
         ]
       },
       {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loaders: [
+            'ts'
+        ]
+      },
+      {
           test: /\.(css|scss)$/,
           loaders: [
               'style',

@@ -10,24 +10,24 @@ describe('todo actions', () => {
   });
 
   it('deleteTodo should create DELETE_TODO action', () => {
-    expect(actions.deleteTodo(1)).toEqual({
+    expect(actions.deleteTodo('18D6BD26-7B34-8BA7-FF06-C4037F578A00')).toEqual({
       type: types.DELETE_TODO,
-      id: 1
+      objectId: '18D6BD26-7B34-8BA7-FF06-C4037F578A00'
     });
   });
 
   it('editTodo should create EDIT_TODO action', () => {
-    expect(actions.editTodo(1, 'Use Redux everywhere')).toEqual({
+    expect(actions.editTodo('18D6BD26-7B34-8BA7-FF06-C4037F578A00', 'Use Redux everywhere')).toEqual({
       type: types.EDIT_TODO,
-      id: 1,
+      objectId: '18D6BD26-7B34-8BA7-FF06-C4037F578A00',
       text: 'Use Redux everywhere'
     });
   });
 
   it('completeTodo should create COMPLETE_TODO action', () => {
-    expect(actions.completeTodo(1)).toEqual({
+    expect(actions.completeTodo('18D6BD26-7B34-8BA7-FF06-C4037F578A00')).toEqual({
       type: types.COMPLETE_TODO,
-      id: 1
+      objectId: '18D6BD26-7B34-8BA7-FF06-C4037F578A00'
     });
   });
 
