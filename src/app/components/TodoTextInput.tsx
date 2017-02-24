@@ -2,9 +2,10 @@
 
 import * as React from 'react';
 import * as classnames from 'classnames';
+import Todo from '../models/todo';
 
 interface ITodoTextInputProps {
-  onSave: (text: string) => void;
+  onSave: ( todo: Todo ) => void;
   text?: string;
   placeholder?: string;
   editing?: boolean;
@@ -37,7 +38,7 @@ class TodoTextInput extends React.Component<ITodoTextInputProps, ITodoTextInputS
   handleSubmit(e: any) {
     const text = e.target.value.trim();
     if (e.which === 13) {
-      this.props.onSave(text);
+      this.props.onSave( new Todo({text: text}) );
       if (this.props.newTodo) {
         this.setState({text: ''});
       }

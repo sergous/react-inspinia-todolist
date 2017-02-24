@@ -10,27 +10,27 @@ export default function  todos(state: any = initialState, action: any) {
   switch (action.type) {
     case ADD_TODO:
       return [
-        TodoService.saveTodo( new Todo({ text: action.text }) ),
+        TodoService.saveTodo( new Todo({ text: action.todo.text }) ),
         ...state
       ];
 
     case DELETE_TODO:
-      if (!TodoService.removeTodo(action)) { return; }
+      if (!TodoService.removeTodo(action.todo)) { return; }
       return state.filter(todo =>
-        todo.objectId !== action.objectId
+        todo.objectId !== action.todo.objectId
       );
 
     case EDIT_TODO:
       return state.map(todo =>
-        todo.objectId === action.objectId ?
-            TodoService.saveTodo( assign({}, todo, {text: action.text}) ) :
+        todo.objectId === action.todo.objectId ?
+            TodoService.saveTodo( assign({}, todo, {text: action.todo.text}) ) :
           todo
       );
 
     case COMPLETE_TODO:
       return state.map(todo =>
-        todo.objectId === action.objectId ?
-            TodoService.saveTodo( assign({}, todo, {completed: !action.completed}) ) :
+        todo.objectId === action.todo.objectId ?
+            TodoService.saveTodo( assign({}, todo, {completed: !action.todo.completed}) ) :
           todo
       );
 

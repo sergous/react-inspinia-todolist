@@ -2,9 +2,10 @@
 
 import * as React from 'react';
 import TodoTextInput from './TodoTextInput';
+import Todo from '../models/todo';
 
 interface IHeaderProps {
-  addTodo: (text: string) => void;
+  addTodo: (todo: Todo) => void;
 };
 
 interface IHeaderState {};
@@ -18,9 +19,9 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
     this.handleSave = this.handleSave.bind(this);
   }
 
-  handleSave(text: string) {
-    if (text.length !== 0) {
-      this.props.addTodo(text);
+  handleSave( todo: Todo ) {
+    if (todo.text.length !== 0) {
+      this.props.addTodo(todo);
     }
   }
 

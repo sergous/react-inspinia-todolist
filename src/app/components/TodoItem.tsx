@@ -3,17 +3,18 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import TodoTextInput from './TodoTextInput';
+import Todo from '../models/todo';
 
 interface ITodoItemProps {
   todo: any;
-  editTodo: (objectId: string, text: string) => void;
-  deleteTodo: (objectId: string) => void;
-  completeTodo: (objectId: string) => void;
-};
+  editTodo: (todo: Todo) => void;
+  deleteTodo: (todo: Todo) => void;
+  completeTodo: (todo: Todo) => void;
+}
 
 interface ITodoItemState {
   editing: boolean;
-};
+}
 
 class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
   static propTypes = {
@@ -35,22 +36,23 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
   }
 
   handleChange() {
-    this.props.completeTodo(this.props.todo.objectId);
+    this.props.completeTodo(this.props.todo);
   }
 
   handleClick() {
-    this.props.deleteTodo(this.props.todo.objectId);
+    this.props.deleteTodo(this.props.todo);
   }
 
   handleDoubleClick() {
     this.setState({editing: true});
   }
 
-  handleSave(text: string) {
-    if (text.length === 0) {
-      this.props.deleteTodo(this.props.todo.objectId);
+  handleSave( todo: Todo ) {
+    if (!todo.text || todo.text.length === 0) {
+      this.props.deleteTodo(this.props.todo);
     } else {
-      this.props.editTodo(this.props.todo.objectId, text);
+      this.props.todo.text = todo.text;
+      this.props.editTodo(this.props.todo);
     }
     this.setState({editing: false});
   }

@@ -1,21 +1,22 @@
 /// <reference path="../../../typings/index.d.ts" />
 
 import * as types from '../constants/ActionTypes';
+import Todo from '../models/todo';
 
-export function addTodo(text: string) {
-  return {type: types.ADD_TODO, text};
+export function addTodo( todo: Todo ) {
+  return {type: types.ADD_TODO, todo};
 }
 
-export function deleteTodo(objectId: string) {
-  return {type: types.DELETE_TODO, objectId};
+export function deleteTodo( todo: Todo ) {
+  return {type: types.DELETE_TODO, todo};
 }
 
-export function editTodo(objectId: string, text: string) {
-  return {type: types.EDIT_TODO, objectId, text};
+export function editTodo( todo: Todo ) {
+  return {type: types.EDIT_TODO, todo};
 }
 
-export function completeTodo(objectId: string) {
-  return {type: types.COMPLETE_TODO, objectId};
+export function completeTodo( todo: Todo ) {
+  return {type: types.COMPLETE_TODO, todo};
 }
 
 export function completeAll() {
