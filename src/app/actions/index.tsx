@@ -6,16 +6,16 @@ export function addTodo(text: string) {
   return {type: types.ADD_TODO, text};
 }
 
-export function deleteTodo(id: number) {
-  return {type: types.DELETE_TODO, id};
+export function deleteTodo(objectId: string) {
+  return {type: types.DELETE_TODO, objectId};
 }
 
-export function editTodo(id: number, text: string) {
-  return {type: types.EDIT_TODO, id, text};
+export function editTodo(objectId: string, text: string) {
+  return {type: types.EDIT_TODO, objectId, text};
 }
 
-export function completeTodo(id: number) {
-  return {type: types.COMPLETE_TODO, id};
+export function completeTodo(objectId: string) {
+  return {type: types.COMPLETE_TODO, objectId};
 }
 
 export function completeAll() {

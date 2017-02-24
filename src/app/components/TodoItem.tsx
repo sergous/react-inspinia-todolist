@@ -6,9 +6,9 @@ import TodoTextInput from './TodoTextInput';
 
 interface ITodoItemProps {
   todo: any;
-  editTodo: (id: string, text: string) => void;
-  deleteTodo: (id: string) => void;
-  completeTodo: (id: string) => void;
+  editTodo: (objectId: string, text: string) => void;
+  deleteTodo: (objectId: string) => void;
+  completeTodo: (objectId: string) => void;
 };
 
 interface ITodoItemState {
@@ -35,11 +35,11 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
   }
 
   handleChange() {
-    this.props.completeTodo(this.props.todo.id);
+    this.props.completeTodo(this.props.todo.objectId);
   }
 
   handleClick() {
-    this.props.deleteTodo(this.props.todo.id);
+    this.props.deleteTodo(this.props.todo.objectId);
   }
 
   handleDoubleClick() {
@@ -48,9 +48,9 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 
   handleSave(text: string) {
     if (text.length === 0) {
-      this.props.deleteTodo(this.props.todo.id);
+      this.props.deleteTodo(this.props.todo.objectId);
     } else {
-      this.props.editTodo(this.props.todo.id, text);
+      this.props.editTodo(this.props.todo.objectId, text);
     }
     this.setState({editing: false});
   }

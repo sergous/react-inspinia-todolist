@@ -94,7 +94,7 @@ class MainSection extends React.Component<IMainProps, IMainState> {
         <ul className='todo-list'>
           {filteredTodos.map(todo =>
             <TodoItem
-              key={todo.id}
+              key={todo.objectId}
               todo={todo}
               {...actions}
               />
