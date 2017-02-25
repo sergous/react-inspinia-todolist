@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
 import TodoTextInput from './TodoTextInput';
 import {assign} from '../assign';
+import Todo from '../models/todo';
 
 function setup(propOverrides: any) {
   const props = assign({
@@ -58,7 +59,7 @@ describe('components', () => {
     it('should call onSave on return key press', () => {
       const {output, props} = setup({});
       output.props.onKeyDown({which: 13, target: {value: 'Use Redux'}});
-      expect(props.onSave).toHaveBeenCalledWith('Use Redux');
+      expect(props.onSave).toHaveBeenCalledWith(new Todo({text: 'Use Redux'}));
     });
 
     it('should reset state on return key press if newTodo', () => {
@@ -70,13 +71,13 @@ describe('components', () => {
 
     it('should call onSave on blur', () => {
       const {output, props} = setup({});
-      output.props.onBlur({target: {value: 'Use Redux'}});
-      expect(props.onSave).toHaveBeenCalledWith('Use Redux');
+      output.props.onBlur({target: {value: new Todo({text: 'Use Redux'})}});
+      expect(props.onSave).toHaveBeenCalledWith(new Todo({text: 'Use Redux'}));
     });
 
     it('shouldnt call onSave on blur if newTodo', () => {
       const {output, props} = setup({newTodo: true});
-      output.props.onBlur({target: {value: 'Use Redux'}});
+      output.props.onBlur({target: {value: new Todo({text: 'Use Redux'})}});
       expect(props.onSave.calls.count()).toBe(0);
     });
   });

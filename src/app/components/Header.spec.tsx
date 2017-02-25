@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
 import Header from './Header';
 import TodoTextInput from './TodoTextInput';
+import Todo from '../models/todo';
 
 function setup() {
   const props = {
@@ -40,9 +41,9 @@ describe('components', () => {
     it('should call addTodo if length of text is greater than 0', () => {
       const {output, props} = setup();
       const input = output.props.children[1];
-      input.props.onSave('');
+      input.props.onSave(new Todo({text: ''}));
       expect(props.addTodo.calls.count()).toBe(0);
-      input.props.onSave('Use Redux');
+      input.props.onSave(new Todo({text: 'Use Redux'}));
       expect(props.addTodo.calls.count()).toBe(1);
     });
   });

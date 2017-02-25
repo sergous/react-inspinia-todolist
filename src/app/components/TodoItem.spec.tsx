@@ -2,14 +2,11 @@ import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
 import TodoItem from './TodoItem';
 import TodoTextInput from './TodoTextInput';
+import Todo from '../models/todo';
 
 function setup(editing: boolean = false) {
   const props = {
-    todo: {
-      objectId: '18D6BD26-7B34-8BA7-FF06-C4037F578A00',
-      text: 'Use Redux',
-      completed: false
-    },
+    todo: new Todo({text: 'Use Redux'}),
     editTodo: jasmine.createSpy('editTodo'),
     deleteTodo: jasmine.createSpy('deleteTodo'),
     completeTodo: jasmine.createSpy('completeTodo')
@@ -65,14 +62,14 @@ describe('components', () => {
       const {output, props} = setup();
       const input = output.props.children.props.children[0];
       input.props.onChange({});
-      expect(props.completeTodo).toHaveBeenCalledWith('18D6BD26-7B34-8BA7-FF06-C4037F578A00');
+      expect(props.completeTodo).toHaveBeenCalledWith(props.todo);
     });
 
     it('button onClick should call deleteTodo', () => {
       const {output, props} = setup();
       const button = output.props.children.props.children[2];
       button.props.onClick({});
-      expect(props.deleteTodo).toHaveBeenCalledWith('18D6BD26-7B34-8BA7-FF06-C4037F578A00');
+      expect(props.deleteTodo).toHaveBeenCalledWith(props.todo);
     });
 
     it('label onDoubleClick should put component in edit state', () => {
@@ -98,14 +95,14 @@ describe('components', () => {
 
     it('TodoTextInput onSave should call editTodo', () => {
       const {output, props} = setup(true);
-      output.props.children.props.onSave('Use Redux');
-      expect(props.editTodo).toHaveBeenCalledWith('18D6BD26-7B34-8BA7-FF06-C4037F578A00', 'Use Redux');
+      output.props.children.props.onSave(new Todo({text: 'Use Redux'}));
+      expect(props.editTodo).toHaveBeenCalledWith(props.todo);
     });
 
     it('TodoTextInput onSave should call deleteTodo if text is empty', () => {
       const {output, props} = setup(true);
       output.props.children.props.onSave('');
-      expect(props.deleteTodo).toHaveBeenCalledWith('18D6BD26-7B34-8BA7-FF06-C4037F578A00');
+      expect(props.deleteTodo).toHaveBeenCalledWith(props.todo);
     });
 
     it('TodoTextInput onSave should exit component from edit state', () => {

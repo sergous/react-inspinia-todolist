@@ -1,33 +1,39 @@
 import * as types from '../constants/ActionTypes';
 import * as actions from './index';
+import Todo from '../models/todo';
 
 describe('todo actions', () => {
+  let todo = new Todo({text: 'Use Redux'});
   it('addTodo should create ADD_TODO action', () => {
-    expect(actions.addTodo('Use Redux')).toEqual({
+    expect(actions.addTodo( todo )).toEqual({
       type: types.ADD_TODO,
-      text: 'Use Redux'
+      todo
     });
   });
 
   it('deleteTodo should create DELETE_TODO action', () => {
-    expect(actions.deleteTodo('18D6BD26-7B34-8BA7-FF06-C4037F578A00')).toEqual({
+    actions.addTodo( todo );
+    expect(actions.deleteTodo( todo )).toEqual({
       type: types.DELETE_TODO,
-      objectId: '18D6BD26-7B34-8BA7-FF06-C4037F578A00'
+      todo
     });
   });
 
   it('editTodo should create EDIT_TODO action', () => {
-    expect(actions.editTodo('18D6BD26-7B34-8BA7-FF06-C4037F578A00', 'Use Redux everywhere')).toEqual({
+    actions.addTodo( todo );
+    let updatedTodo = Object.assign(todo, {text: 'Use Redux everywhere'});
+    expect(actions.editTodo( updatedTodo )).toEqual({
       type: types.EDIT_TODO,
-      objectId: '18D6BD26-7B34-8BA7-FF06-C4037F578A00',
-      text: 'Use Redux everywhere'
+      todo: updatedTodo
     });
   });
 
   it('completeTodo should create COMPLETE_TODO action', () => {
-    expect(actions.completeTodo('18D6BD26-7B34-8BA7-FF06-C4037F578A00')).toEqual({
+    actions.addTodo( todo );
+    let completedTodo = Object.assign(todo, {completed: true});
+    expect(actions.completeTodo(completedTodo)).toEqual({
       type: types.COMPLETE_TODO,
-      objectId: '18D6BD26-7B34-8BA7-FF06-C4037F578A00'
+      todo: completedTodo
     });
   });
 
