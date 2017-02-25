@@ -7,12 +7,13 @@ export default (function TodoService() {
     Backendless.initApp(Env.APP_ID, Env.APP_KEY, Env.APP_VER);
 
     return {
-        saveTodo: function (todo: Todo): Object {
+        saveTodo: function (todo: Todo): Todo {
             if (Env.CURRENT === Env.TEST) {
               return Object.assign(todo, {objectId: guid()});
             }
             try {
-                return Backendless.Persistence.of(Todo).save(todo);
+                // noinspection TypeScriptUnresolvedVariable
+                return Backendless.Persistence.of(Todo).save(todo).data;
             } catch (error) {
                 console.log(error);
             }

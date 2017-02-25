@@ -2,15 +2,17 @@ import {ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COM
 import {assign} from '../assign';
 import Todo from '../models/todo';
 import TodoService from '../services/todo.service';
+import {TodoAction} from '../models/todo';
 
+let initTodos: Todo[] = TodoService.getTodos();
+const initialState = initTodos.length ? initTodos : [TodoService.saveTodo( new Todo({text: 'Use Redux'}) )];
 
-const initialState = TodoService.getTodos() || [TodoService.saveTodo( new Todo({text: 'Use Redux'}) )];
-
-export default function  todos(state: any = initialState, action: any) {
+export default function  todos(state: Todo[] = initialState, action?: any) {
+  action = action || new TodoAction();
   switch (action.type) {
     case ADD_TODO:
       return [
-        TodoService.saveTodo( new Todo({ text: action.todo.text }) ),
+        TodoService.saveTodo( action.todo ),
         ...state
       ];
 

@@ -20,6 +20,7 @@ class Minor extends React.Component<IMinorViewProps, IMinorViewState> {
     getContacts(): Contact[] {
         try {
             let result = Backendless.Persistence.of( Contact ).find( );
+            // noinspection TypeScriptUnresolvedVariable
             return result.data;
         } catch (error) {
             console.log(error);
