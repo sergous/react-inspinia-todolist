@@ -1,4 +1,4 @@
-/// <reference path="../../../typings/index.d.ts" />
+/// <reference path='../../../typings/index.d.ts' />
 
 import * as React from 'react';
 import TodoItem from './TodoItem';
@@ -91,13 +91,13 @@ class MainSection extends React.Component<IMainProps, IMainState> {
     return (
       <section className='main'>
         {this.renderToggleAll(completedCount)}
-        <ul className='todo-list'>
+        <ul className='todo-list m-t small-list'>
           {filteredTodos.map(todo =>
             <TodoItem
               key={todo.objectId}
               todo={todo}
               {...actions}
-              />
+            />
           )}
         </ul>
         {this.renderFooter(completedCount)}

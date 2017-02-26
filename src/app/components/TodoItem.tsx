@@ -71,9 +71,8 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
       );
     } else {
       element = (
-        <div className='view'>
+        <span>
           <input
-            className='toggle'
             type='checkbox'
             checked={todo.completed}
             onChange={this.handleChange}
@@ -84,10 +83,10 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
             {todo.text}
           </label>
           <button
-            className='destroy'
+            className='btn pull-right'
             onClick={this.handleClick}
-            />
-        </div>
+          ><i className='fa fa-times'></i></button>
+        </span>
       );
     }
 

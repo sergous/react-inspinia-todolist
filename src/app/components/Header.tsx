@@ -28,7 +28,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
   render() {
     return (
       <header className='header'>
-        <h1>todos</h1>
+        <h1>TODO List</h1>
         <TodoTextInput
           newTodo
           onSave={this.handleSave}

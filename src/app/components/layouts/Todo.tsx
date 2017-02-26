@@ -1,4 +1,4 @@
-/// <reference path="../../../../typings/index.d.ts" />
+/// <reference path='../../../../typings/index.d.ts' />
 
 import * as React from 'react';
 import {IDispatch} from '~react-redux~redux';
@@ -26,15 +26,19 @@ class Todo extends React.Component<IAppProps, IAppState> {
     const {todos, actions} = this.props;
     return (
       <div className='todo'>
-          <div className='todoapp'>
-            <Header
-              addTodo={actions.addTodo}
+        <div className='col-lg-12'>
+          <div className='ibox float-e-margins'>
+            <div className='ibox-content'>
+              <Header
+                addTodo={actions.addTodo}
               />
-            <MainSection
-              todos={todos}
-              actions={actions}
-              />
+              <MainSection
+                todos={todos}
+                actions={actions}
+                />
+            </div>
           </div>
+        </div>
       </div>
     );
   }

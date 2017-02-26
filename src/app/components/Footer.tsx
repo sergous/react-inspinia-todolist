@@ -72,7 +72,7 @@ class Footer extends React.Component<IFooterProps, IFooterState> {
 
   render() {
     return (
-      <footer className='footer'>
+      <footer className='todo-footer'>
         {this.renderTodoCount()}
         <ul className='filters'>
           {[SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED].map(filter =>
