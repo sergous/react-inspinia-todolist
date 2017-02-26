@@ -5,19 +5,20 @@ import TodoItem from './TodoItem';
 import Footer from './Footer';
 import {SHOW_ALL, SHOW_COMPLETED} from '../constants/TodoFilters';
 import {assign} from '../assign';
+import Todo from '../models/todo';
+import TodoService from '../services/todo.service';
 
 function setup(propOverrides: any) {
   const props = assign({
     todos: [
-      {
+      TodoService.saveTodo( new Todo({
         text: 'Use Redux',
-        completed: false,
-        id: 0
-      }, {
+        completed: false
+      }) ),
+      TodoService.saveTodo( new Todo({
         text: 'Run the tests',
-        completed: true,
-        id: 1
-      }
+        completed: true
+      }) )
     ],
     actions: {
       editTodo: jasmine.createSpy('editTodo'),
@@ -59,11 +60,10 @@ describe('components', () => {
       it('should be checked if all todos completed', () => {
         const {output} = setup({
           todos: [
-            {
+            TodoService.saveTodo( new Todo({
               text: 'Use Redux',
-              completed: true,
-              id: 0
-            }
+              completed: true
+            }) )
           ]
         });
         const [toggle] = output.props.children;

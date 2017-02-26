@@ -5,9 +5,10 @@ import TodoService from '../services/todo.service';
 import {TodoAction} from '../models/todo';
 
 let initTodos: Todo[] = TodoService.getTodos();
-const initialState = initTodos.length ? initTodos : [TodoService.saveTodo( new Todo({text: 'Use Redux'}) )];
+const initialState = initTodos.length > 0 ? initTodos : [TodoService.saveTodo( new Todo({text: 'Use Redux'}) )];
 
-export default function  todos(state: Todo[] = initialState, action?: any) {
+export default function todos(state?: Todo[], action?: any): Todo[] {
+  state = state || initialState;
   action = action || new TodoAction();
   switch (action.type) {
     case ADD_TODO:

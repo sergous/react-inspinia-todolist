@@ -1,5 +1,4 @@
 import {IAction} from '~react-redux~redux';
-import guid from '../utils/guid';
 
 interface ITodo extends Object {
     text: string;
@@ -8,18 +7,19 @@ interface ITodo extends Object {
     id?: number;
 }
 
-class TodoDefaults implements ITodo {
+class TodoDefaults extends Object implements ITodo {
     text: string;
     completed: boolean;
 
     constructor() {
+        super();
         this.text = '';
         this.completed = false;
     }
 
 }
 
-export default class Todo implements ITodo {
+export default class Todo extends Object implements ITodo {
     text: string;
     completed: boolean;
     objectId?: string;
@@ -27,8 +27,7 @@ export default class Todo implements ITodo {
 
     constructor(options?: ITodo) {
         options = Object.assign(new TodoDefaults(), options);
-        this.text = options.text;
-        this.completed = options.completed;
+        super(options);
     }
 }
 
@@ -37,22 +36,22 @@ export interface ITodoAction extends IAction {
     todo?: Todo;
 }
 
-class TodoActionDefaults implements ITodoAction {
+class TodoActionDefaults extends Object implements ITodoAction {
     type: string;
     todo?: Todo;
 
     constructor() {
+        super();
         this.type = '';
         this.todo = new Todo();
     }
 }
 
-export class TodoAction implements ITodoAction {
+export class TodoAction extends Object implements ITodoAction {
     type: string;
     todo?: Todo;
     constructor(options?: ITodoAction) {
         options = Object.assign(new TodoActionDefaults(), options);
-        this.type = options.type;
-        this.todo = options.todo;
+        super(options);
     }
 }

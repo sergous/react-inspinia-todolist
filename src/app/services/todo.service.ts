@@ -9,7 +9,12 @@ export default (function TodoService() {
     return {
         saveTodo: function (todo: Todo): Todo {
             if (Env.CURRENT === Env.TEST) {
-              return Object.assign(todo, {objectId: guid()});
+               try {
+                 todo.objectId = todo.objectId || guid();
+                 return todo;
+               } catch (e) {
+                 console.log(e);
+               }
             }
             try {
                 // noinspection TypeScriptUnresolvedVariable
