@@ -1,248 +1,153 @@
 import todos from './todos';
 import * as types from '../constants/ActionTypes';
+import {TodoAction} from '../models/todo';
+import Todo from '../models/todo';
+import guid from '../utils/guid';
+
+let setup = new class {
+  public todos = [];
+  public todoStore = [];
+  constructor() {
+    this.todos.push(new Todo({text: 'Use Redux', objectId: guid()}));
+    this.todos.push(new Todo({text: 'Run the tests', objectId: guid()}));
+    this.todos.push(new Todo({text: 'Fix the tests', objectId: guid(), completed: true}));
+
+    this.todoStore.push(todos());
+    this.todoStore.push(todos([
+      this.todos[1],
+    ], new TodoAction()));
+    this.todoStore.push(todos([
+      this.todos[1],
+    ], new TodoAction({
+      type: types.ADD_TODO,
+      todo: this.todos[2]
+    })));
+    this.todoStore.push(todos([
+      this.todos[1],
+      this.todos[2]
+    ], new TodoAction({
+      type: types.ADD_TODO,
+      todo: this.todos[3]
+    })));
+  };
+};
 
 describe('todos reducer', () => {
   it('should handle initial state', () => {
     expect(
-      todos(undefined, {})
-    ).toEqual([
-      {
-        text: 'Use Redux',
-        completed: false,
-        id: 0
-      }
-    ]);
+      setup.todoStore[0][0] instanceof Todo
+    ).toBeTruthy();
   });
 
   it('should handle ADD_TODO', () => {
     expect(
-      todos([], {
-        type: types.ADD_TODO,
-        text: 'Run the tests'
-      })
-    ).toEqual([
-      {
-        text: 'Run the tests',
-        completed: false,
-        id: 0
-      }
-    ]);
+      setup.todoStore[1][0] instanceof Todo
+    ).toBeTruthy();
 
     expect(
-      todos([
-        {
-          text: 'Use Redux',
-          completed: false,
-          id: 0
-        }
-      ], {
-        type: types.ADD_TODO,
-        text: 'Run the tests'
-      })
-    ).toEqual([
-      {
-        text: 'Run the tests',
-        completed: false,
-        id: 1
-      }, {
-        text: 'Use Redux',
-        completed: false,
-        id: 0
-      }
-    ]);
+      setup.todoStore[2][0] instanceof Todo
+    ).toBeTruthy();
 
     expect(
-      todos([
-        {
-          text: 'Run the tests',
-          completed: false,
-          id: 1
-        }, {
-          text: 'Use Redux',
-          completed: false,
-          id: 0
-        }
-      ], {
-        type: types.ADD_TODO,
-        text: 'Fix the tests'
-      })
-    ).toEqual([
-      {
-        text: 'Fix the tests',
-        completed: false,
-        id: 2
-      }, {
-        text: 'Run the tests',
-        completed: false,
-        id: 1
-      }, {
-        text: 'Use Redux',
-        completed: false,
-        id: 0
-      }
-    ]);
+      setup.todoStore[2][0].text
+    ).toEqual(setup.todos[2].text);
+
+    expect(
+      setup.todoStore[3][0] instanceof Todo
+    ).toBeTruthy();
+
+    expect(
+      setup.todoStore[3][0].text
+    ).toEqual(setup.todos[3].text);
   });
 
   it('should handle DELETE_TODO', () => {
     expect(
       todos([
-        {
-          text: 'Run the tests',
-          completed: false,
-          id: 1
-        }, {
-          text: 'Use Redux',
-          completed: false,
-          id: 0
-        }
-      ], {
+        setup.todos[0],
+        setup.todos[1]
+      ], new TodoAction({
         type: types.DELETE_TODO,
-        id: 1
-      })
-    ).toEqual([
-      {
-        text: 'Use Redux',
-        completed: false,
-        id: 0
-      }
-    ]);
+        todo: setup.todos[1]
+      }))
+    ).toEqual(setup.todoStore[0]);
   });
 
   it('should handle EDIT_TODO', () => {
+    let updatedTodo1 = Object.assign(setup.todos[1], {text: setup.todos[2].text});
     expect(
       todos([
-        {
-          text: 'Run the tests',
-          completed: false,
-          id: 1
-        }, {
-          text: 'Use Redux',
-          completed: false,
-          id: 0
-        }
-      ], {
+        setup.todos[0],
+        setup.todos[1]
+      ], new TodoAction({
         type: types.EDIT_TODO,
-        text: 'Fix the tests',
-        id: 1
-      })
-    ).toEqual([
-      {
-        text: 'Fix the tests',
-        completed: false,
-        id: 1
-      }, {
-        text: 'Use Redux',
-        completed: false,
-        id: 0
-      }
-    ]);
+        todo: updatedTodo1
+      }))
+    ).toEqual(
+      todos([
+        setup.todos[0],
+        updatedTodo1
+      ], new TodoAction())
+    );
   });
 
   it('should handle COMPLETE_TODO', () => {
+    let completedTodo1 = Object.assign(setup.todos[1], {completed: !setup.todos[1].completed});
     expect(
       todos([
-        {
-          text: 'Run the tests',
-          completed: false,
-          id: 1
-        }, {
-          text: 'Use Redux',
-          completed: false,
-          id: 0
-        }
-      ], {
+        setup.todos[0],
+        setup.todos[1]
+      ], new TodoAction({
         type: types.COMPLETE_TODO,
-        id: 1
-      })
+        todo: setup.todos[1]
+      }))
     ).toEqual([
-      {
-        text: 'Run the tests',
-        completed: true,
-        id: 1
-      }, {
-        text: 'Use Redux',
-        completed: false,
-        id: 0
-      }
+      todos([
+        setup.todos[0],
+        completedTodo1
+      ], new TodoAction())
     ]);
   });
 
   it('should handle COMPLETE_ALL', () => {
+    let doneTodo2 = Object.assign(setup.todos[2], {completed: true});
+    let undoneTodo3 = Object.assign(setup.todos[3], {completed: false});
     expect(
       todos([
-        {
-          text: 'Run the tests',
-          completed: true,
-          id: 1
-        }, {
-          text: 'Use Redux',
-          completed: false,
-          id: 0
-        }
-      ], {
+        setup.todos[2],
+        setup.todos[3]
+      ], new TodoAction({
         type: types.COMPLETE_ALL
-      })
+      }))
     ).toEqual([
-      {
-        text: 'Run the tests',
-        completed: true,
-        id: 1
-      }, {
-        text: 'Use Redux',
-        completed: true,
-        id: 0
-      }
+      doneTodo2,
+      setup.todos[3]
     ]);
 
     // unmark if all todos are currently completed
     expect(
       todos([
-        {
-          text: 'Run the tests',
-          completed: true,
-          id: 1
-        }, {
-          text: 'Use Redux',
-          completed: true,
-          id: 0
-        }
-      ], {
+        doneTodo2,
+        setup.todos[3]
+      ], new TodoAction({
         type: types.COMPLETE_ALL
-      })
+      }))
     ).toEqual([
-      {
-        text: 'Run the tests',
-        completed: false,
-        id: 1
-      }, {
-        text: 'Use Redux',
-        completed: false,
-        id: 0
-      }
+      setup.todos[2],
+      undoneTodo3
     ]);
   });
 
   it('should handle CLEAR_COMPLETED', () => {
     expect(
       todos([
-        {
-          text: 'Run the tests',
-          completed: true,
-          id: 1
-        }, {
-          text: 'Use Redux',
-          completed: false,
-          id: 0
-        }
-      ], {
+        setup.todos[2],
+        setup.todos[3]
+      ], new TodoAction({
         type: types.CLEAR_COMPLETED
-      })
+      }))
     ).toEqual([
-      {
-        text: 'Use Redux',
-        completed: false,
-        id: 0
-      }
+      setup.todos[2]
     ]);
   });
 
@@ -251,34 +156,20 @@ describe('todos reducer', () => {
       [
         {
           type: types.COMPLETE_TODO,
-          id: 0
+          todo: setup.todos[0]
         }, {
           type: types.CLEAR_COMPLETED
         }, {
           type: types.ADD_TODO,
-          text: 'Write more tests'
+          todo: setup.todos[1]
         }
       ].reduce(todos, [
-        {
-          id: 0,
-          completed: false,
-          text: 'Use Redux'
-        }, {
-          id: 1,
-          completed: false,
-          text: 'Write tests'
-        }
+        setup.todos[0],
+        setup.todos[2]
       ])
     ).toEqual([
-      {
-        text: 'Write more tests',
-        completed: false,
-        id: 2
-      }, {
-        text: 'Write tests',
-        completed: false,
-        id: 1
-      }
+        setup.todos[1],
+        setup.todos[3]
     ]);
   });
 });
