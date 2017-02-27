@@ -38,7 +38,7 @@ describe('components', () => {
     it('should render container', () => {
       const {output} = setup({});
       expect(output.type).toBe('footer');
-      expect(output.props.className).toBe('footer');
+      expect(output.props.className).toBe('todo-footer');
     });
 
     it('should display active count when 0', () => {

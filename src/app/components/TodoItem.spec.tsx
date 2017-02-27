@@ -43,8 +43,7 @@ describe('components', () => {
 
       const div = output.props.children;
 
-      expect(div.type).toBe('div');
-      expect(div.props.className).toBe('view');
+      expect(div.type).toBe('span');
 
       const [input, label, button] = div.props.children;
 
@@ -55,7 +54,7 @@ describe('components', () => {
       expect(label.props.children).toBe('Use Redux');
 
       expect(button.type).toBe('button');
-      expect(button.props.className).toBe('destroy');
+      expect(button.props.className).toBe('btn pull-right');
     });
 
     it('input onChange should call completeTodo', () => {
