@@ -4,13 +4,11 @@ interface ITodo extends Object {
     text: string;
     completed?: boolean;
     objectId?: string;
-    id?: number;
 }
 
 class TodoDefaults extends Object implements ITodo {
     text: string;
     completed: boolean;
-
     constructor() {
         super();
         this.text = '';
@@ -23,8 +21,6 @@ export default class Todo extends Object implements ITodo {
     text: string;
     completed: boolean;
     objectId?: string;
-    id?: number;
-
     constructor(options?: ITodo) {
         options = Object.assign(new TodoDefaults(), options);
         super(options);
@@ -39,7 +35,6 @@ export interface ITodoAction extends IAction {
 class TodoActionDefaults extends Object implements ITodoAction {
     type: string;
     todo?: Todo;
-
     constructor() {
         super();
         this.type = '';
