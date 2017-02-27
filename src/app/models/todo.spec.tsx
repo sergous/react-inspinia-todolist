@@ -13,9 +13,13 @@ describe('Todo', () => {
         todo
       ).toEqual({
         text: '',
-        completed: false,
-        objectId: undefined
+        completed: false
       });
+    });
+    it('should be set', () => {
+      expect(
+        todo.objectId
+      ).toBeUndefined();
     });
   });
 });
@@ -38,8 +42,8 @@ describe('TodoAction', () => {
     });
     it('should have todo', () => {
       expect(
-        todoAction.todo instanceof Todo
-      ).toBeTruthy();
+        todoAction.todo
+      ).toBeDefined();
     });
   });
 });
