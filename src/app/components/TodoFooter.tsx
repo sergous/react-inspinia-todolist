@@ -20,7 +20,7 @@ interface IFooterProps {
 
 interface IFooterState {}
 
-class Footer extends React.Component<IFooterProps, IFooterState> {
+class TodoFooter extends React.Component<IFooterProps, IFooterState> {
   static propTypes = {
     completedCount: React.PropTypes.number.isRequired,
     activeCount: React.PropTypes.number.isRequired,
@@ -87,4 +87,4 @@ class Footer extends React.Component<IFooterProps, IFooterState> {
   }
 }
 
-export default Footer;
+export default TodoFooter;

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import TodoItem from './TodoItem';
-import Footer from './Footer';
+import TodoFooter from './TodoFooter';
 import {SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE} from '../constants/TodoFilters';
 
 const TODO_FILTERS = {
@@ -20,7 +20,7 @@ interface IMainState {
   filter: string;
 };
 
-class MainSection extends React.Component<IMainProps, IMainState> {
+class TodoMainSection extends React.Component<IMainProps, IMainState> {
   static propTypes = {
     todos: React.PropTypes.array.isRequired,
     actions: React.PropTypes.object.isRequired
@@ -67,7 +67,7 @@ class MainSection extends React.Component<IMainProps, IMainState> {
 
     if (todos.length) {
       return (
-        <Footer
+        <TodoFooter
           completedCount={completedCount}
           activeCount={activeCount}
           filter={filter}
@@ -106,4 +106,4 @@ class MainSection extends React.Component<IMainProps, IMainState> {
   }
 }
 
-export default MainSection;
+export default TodoMainSection;

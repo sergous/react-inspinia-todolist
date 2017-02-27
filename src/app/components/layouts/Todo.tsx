@@ -4,8 +4,8 @@ import * as React from 'react';
 import {IDispatch} from '~react-redux~redux';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import Header from '../Header';
-import MainSection from '../MainSection';
+import TodoHeader from '../TodoHeader';
+import TodoMainSection from '../TodoMainSection';
 import {addTodo, deleteTodo, editTodo, completeTodo, completeAll, clearCompleted} from '../../actions/index';
 import './todo.scss';
 
@@ -29,10 +29,10 @@ class Todo extends React.Component<IAppProps, IAppState> {
         <div className='col-lg-12'>
           <div className='ibox float-e-margins'>
             <div className='ibox-content'>
-              <Header
+              <TodoHeader
                 addTodo={actions.addTodo}
               />
-              <MainSection
+              <TodoMainSection
                 todos={todos}
                 actions={actions}
                 />

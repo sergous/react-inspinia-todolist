@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
-import Footer from './Footer';
+import TodoFooter from './TodoFooter';
 import {SHOW_ALL, SHOW_ACTIVE} from '../constants/TodoFilters';
 import {assign} from '../assign';
 
@@ -14,7 +14,7 @@ function setup(propOverrides: any) {
   }, propOverrides);
 
   const renderer = TestUtils.createRenderer();
-  renderer.render(<Footer {...props}/>);
+  renderer.render(<TodoFooter {...props}/>);
   const output = renderer.getRenderOutput();
 
   return {
@@ -34,7 +34,7 @@ function getTextContent(elem: any) {
 }
 
 describe('components', () => {
-  describe('Footer', () => {
+  describe('TodoFooter', () => {
     it('should render container', () => {
       const {output} = setup({});
       expect(output.type).toBe('footer');

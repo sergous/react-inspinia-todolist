@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
-import MainSection from './MainSection';
+import TodoMainSection from './TodoMainSection';
 import TodoItem from './TodoItem';
-import Footer from './Footer';
+import TodoFooter from './TodoFooter';
 import {SHOW_ALL, SHOW_COMPLETED} from '../constants/TodoFilters';
 import {assign} from '../assign';
 import Todo from '../models/todo';
@@ -30,7 +30,7 @@ function setup(propOverrides: any) {
   }, propOverrides);
 
   const renderer = TestUtils.createRenderer();
-  renderer.render(<MainSection {...props}/>);
+  renderer.render(<TodoMainSection {...props}/>);
   const output = renderer.getRenderOutput();
 
   return {
@@ -41,7 +41,7 @@ function setup(propOverrides: any) {
 }
 
 describe('components', () => {
-  describe('MainSection', () => {
+  describe('TodoMainSection', () => {
     it('should render container', () => {
       const {output} = setup({});
       expect(output.type).toBe('section');
@@ -82,7 +82,7 @@ describe('components', () => {
       it('should render', () => {
         const {output} = setup({});
         const [, , footer] = output.props.children;
-        expect(footer.type).toBe(Footer);
+        expect(footer.type).toBe(TodoFooter);
         expect(footer.props.completedCount).toBe(1);
         expect(footer.props.activeCount).toBe(1);
         expect(footer.props.filter).toBe(SHOW_ALL);

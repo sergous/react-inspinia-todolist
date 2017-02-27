@@ -10,7 +10,7 @@ interface IHeaderProps {
 
 interface IHeaderState {};
 
-class Header extends React.Component<IHeaderProps, IHeaderState> {
+class TodoHeader extends React.Component<IHeaderProps, IHeaderState> {
   static propTypes = {
     addTodo: React.PropTypes.func.isRequired
   };
@@ -39,4 +39,4 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
   }
 }
 
-export default Header;
+export default TodoHeader;

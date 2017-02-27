@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
-import Header from './Header';
+import TodoHeader from './TodoHeader';
 import TodoTextInput from './TodoTextInput';
 import Todo from '../models/todo';
 
@@ -10,7 +10,7 @@ function setup() {
   };
 
   const renderer = TestUtils.createRenderer();
-  renderer.render(<Header {...props}/>);
+  renderer.render(<TodoHeader {...props}/>);
   const output = renderer.getRenderOutput();
 
   return {
@@ -21,7 +21,7 @@ function setup() {
 }
 
 describe('components', () => {
-  describe('Header', () => {
+  describe('TodoHeader', () => {
     it('should render correctly', () => {
       const {output} = setup();
 
