@@ -47,8 +47,8 @@ class Navigation extends React.Component<INavigationProps, INavigationState> {
                         <li className={this.activeRoute('/main')}>
                             <Link to='/main'><i className='fa fa-th-large'></i> <span className='nav-label'>Main view</span></Link>
                         </li>
-                        <li className={this.activeRoute('/minor')}>
-                            <Link to='/minor'><i className='fa fa-th-large'></i> <span className='nav-label'>Minor view</span></Link>
+                        <li className={this.activeRoute('/contacts')}>
+                            <Link to='/contacts'><i className='fa fa-users'></i> <span className='nav-label'>Contacts</span></Link>
                         </li>
                         <li className={this.activeRoute('/todo')}>
                             <Link to='/todo'><i className='fa fa-tasks'></i> <span className='nav-label'>Todo</span></Link>
