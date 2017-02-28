@@ -11,7 +11,7 @@ interface IContact extends Object {
     objectId?: string;
 }
 
-class ContactDefaults implements IContact {
+class ContactDefaults extends Object implements IContact {
     name: string;
     position: string;
     email: string;
@@ -23,12 +23,13 @@ class ContactDefaults implements IContact {
     address2: string;
 
     constructor() {
+        super();
         this.name = '';
         this.position = '';
         this.email = '';
         this.phone = '';
         this.twitter = '';
-        this.photo_url = 'assets/img/a1.jpg';
+        this.photo_url = 'assets/img/profile_small.jpg';
         this.company = '';
         this.address1 = '';
         this.address2 = '';
@@ -36,7 +37,7 @@ class ContactDefaults implements IContact {
 
 }
 
-export default class Contact implements IContact {
+export default class Contact extends Object implements IContact {
     name: string;
     position: string;
     email: string;
@@ -48,15 +49,8 @@ export default class Contact implements IContact {
     address2: string;
     objectId: string;
 
-    constructor(options: IContact = new ContactDefaults()) {
-        this.name = options.name;
-        this.position = options.position;
-        this.email = options.email;
-        this.phone = options.phone;
-        this.twitter = options.twitter;
-        this.photo_url = options.photo_url;
-        this.company = options.company;
-        this.address1 = options.address1;
-        this.address2 = options.address2;
+    constructor(options?: IContact) {
+        options = Object.assign(new ContactDefaults(), options);
+        super(options);
     }
 }
