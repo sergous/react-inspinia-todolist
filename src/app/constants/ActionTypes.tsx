@@ -4,3 +4,6 @@ export const EDIT_TODO = 'EDIT_TODO';
 export const COMPLETE_TODO = 'COMPLETE_TODO';
 export const COMPLETE_ALL = 'COMPLETE_ALL';
 export const CLEAR_COMPLETED = 'CLEAR_COMPLETED';
+export const ADD_CONTACT = 'ADD_CONTACT';
+export const DELETE_CONTACT = 'DELETE_CONTACT';
+export const EDIT_CONTACT = 'EDIT_CONTACT';

@@ -2,19 +2,26 @@
 
 import * as React from 'react';
 import Contact from '../../models/contact';
-import ContactService from '../../services/contact.service';
 import ContactItem from '../ContactItem';
+import {IDispatch} from '~react-redux~redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {addContact, deleteContact, editContact} from '../../actions/index';
 
 interface IContactsViewProps {
-  contacts: Contact[];
-  actions: any;
-};
+  contacts?: Contact[];
+  actions?: any;
+}
+
 interface IContactsViewState {}
 
 class ContactsView extends React.Component<IContactsViewProps, IContactsViewState> {
+    static propTypes = {
+      contacts: React.PropTypes.array.isRequired,
+      actions: React.PropTypes.object.isRequired
+    };
     render() {
-        const {actions} = this.props;
-        const contacts: Contact[] = ContactService.getContacts();
+        const {contacts, actions} = this.props;
         return (
             <div className='wrapper wrapper-content animated fadeInRight'>
                 <div className='row'>
@@ -29,7 +36,26 @@ class ContactsView extends React.Component<IContactsViewProps, IContactsViewStat
             </div>
         );
     }
-
 }
 
-export default ContactsView;
+function mapStateToProps(state: any) {
+  return {
+    contacts: state.contacts
+  };
+}
+
+function mapDispatchToProps(dispatch: IDispatch) {
+  //noinspection TypeScriptValidateTypes
+  return {
+    actions: bindActionCreators({
+      addContact,
+      deleteContact,
+      editContact
+    }, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ContactsView);
