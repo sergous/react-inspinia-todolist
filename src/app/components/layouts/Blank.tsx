@@ -15,16 +15,16 @@ class Blank extends React.Component<IBlankProps, IBlankState> {
             <div>
                 {this.props.children}
             </div>
-        )
+        );
     }
 
-    componentDidMount(){
+    componentDidMount() {
         $('body').addClass('gray-bg');
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         $('body').removeClass('gray-bg');
     }
 }
 
-export default Blank
+export default Blank;
