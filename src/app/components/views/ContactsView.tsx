@@ -1,9 +1,9 @@
-/// <reference path='../../../typings/index.d.ts' />
+/// <reference path='../../../../typings/index.d.ts' />
 
 import * as React from 'react';
-import Contact from '../models/contact';
-import ContactService from '../services/contact.service';
-import ContactItem from '../components/ContactItem';
+import Contact from '../../models/contact';
+import ContactService from '../../services/contact.service';
+import ContactItem from '../ContactItem';
 
 interface IContactsViewProps {
   contacts: Contact[];

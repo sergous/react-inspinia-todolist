@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import TodoHeader from '../TodoHeader';
 import TodoMainSection from '../TodoMainSection';
 import {addTodo, deleteTodo, editTodo, completeTodo, completeAll, clearCompleted} from '../../actions/index';
-import './todo.scss';
+import '../layouts/todo.scss';
 
 interface IAppProps {
   todos?: any[];
@@ -16,7 +16,7 @@ interface IAppProps {
 
 interface IAppState {}
 
-class Todo extends React.Component<IAppProps, IAppState> {
+class TodoView extends React.Component<IAppProps, IAppState> {
   static propTypes = {
     todos: React.PropTypes.array.isRequired,
     actions: React.PropTypes.object.isRequired
@@ -67,4 +67,4 @@ function mapDispatchToProps(dispatch: IDispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Todo);
+)(TodoView);
