@@ -1,13 +1,14 @@
-/// <reference path="../../../typings/index.d.ts" />
+/// <reference path='../../../typings/index.d.ts' />
 
 import * as React from 'react';
 import Contact from '../models/contact';
 
 interface IContactItemProps {
   contact: Contact;
-  editContact: (contact: Contact) => void;
-  deleteContact: (contact: Contact) => void;
-  completeContact: (contact: Contact) => void;
+  // todo: edit contact
+  editContact?: (contact: Contact) => void;
+  deleteContact?: (contact: Contact) => void;
+  completeContact?: (contact: Contact) => void;
 }
 
 interface IContactItemState {
@@ -72,28 +73,26 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
     } else {
       element = (
         <div className='contact-box center-version'>
-
           <a href=''>
-
-            <img alt='image' className='img-circle' src={ contact.photo_url } />
-
-
-            <h3 className='m-b-xs'><strong>{ contact.name }</strong></h3>
-
-            <div className='font-bold'>{ contact.position }</div>
+            <img alt={contact.name} className='img-circle' src={contact.photo_url} />
+            <h3 className='m-b-xs'>{contact.name}</h3>
+            {contact.position && <div className='font-bold'>{contact.position}</div>}
             <address className='m-t-md'>
-              <strong>{ contact.company }</strong><br/>
-              { contact.address1 }<br/>
-              { contact.address2 }<br/>
-              <span><abbr title='Phone'>P:</abbr> { contact.phone }</span><br/>
+              {contact.company && <strong>{contact.company}</strong>}
+              {contact.address1 && <p className='no-margins'>{contact.address1}</p>}
+              {contact.address2 && <p className='no-margins'>{contact.address2}</p>}
+              {contact.phone && <p className='no-margins'>
+                <abbr title='Phone'>P: </abbr><span>{contact.phone}</span></p>}
             </address>
-
           </a>
           <div className='contact-box-footer'>
             <div className='m-t-xs btn-group'>
-              <a className='btn btn-xs btn-white' href={ `tel:${contact.phone}` }><i className='fa fa-phone'></i> Call </a>
-              <a className='btn btn-xs btn-white' href={ `mailto:${contact.email}` }><i className='fa fa-envelope'></i> Email</a>
-              <a className='btn btn-xs btn-white' href={ `http://twitter.com/${contact.twitter}` }><i className='fa fa-user-plus'></i> Follow</a>
+              {contact.phone && <a className='btn btn-xs btn-white' href={`tel:${contact.phone}`}>
+                <i className='fa fa-phone'></i> Call </a>}
+              {contact.email && <a className='btn btn-xs btn-white' href={`mailto:${contact.email}`}>
+                <i className='fa fa-envelope'></i> Email</a>}
+              {contact.twitter && <a className='btn btn-xs btn-white' href={`http://twitter.com/${contact.twitter}`}>
+                <i className='fa fa-user-plus'></i> Follow</a>}
             </div>
           </div>
         </div>
