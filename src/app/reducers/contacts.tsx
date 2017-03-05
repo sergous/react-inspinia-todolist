@@ -27,7 +27,7 @@ export default function contacts(state?: Contact[], action?: any): Contact[] {
     case EDIT_CONTACT:
       return state.map(contact =>
         contact.objectId === action.contact.objectId ?
-            ContactService.saveContact( assign({}, contact, {text: action.contact.text}) ) :
+            ContactService.saveContact( assign({}, contact, action.contact) ) :
           contact
       );
 

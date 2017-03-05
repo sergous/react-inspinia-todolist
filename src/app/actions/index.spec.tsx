@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes';
 import * as actions from './index';
 import Todo from '../models/todo';
+import Contact from '../models/contact';
 
 describe('todo actions', () => {
   let todo = new Todo({text: 'Use Redux'});
@@ -46,6 +47,33 @@ describe('todo actions', () => {
   it('clearCompleted should create CLEAR_COMPLETED action', () => {
     expect(actions.clearCompleted()).toEqual({
       type: types.CLEAR_COMPLETED
+    });
+  });
+});
+
+describe('contacts actions', () => {
+  let contact = new Contact({name: 'James Bond'});
+  it('addContact should create ADD_CONTACT action', () => {
+    expect(actions.addContact( contact )).toEqual({
+      type: types.ADD_CONTACT,
+      contact
+    });
+  });
+
+  it('deleteContact should create DELETE_CONTACT action', () => {
+    actions.addContact( contact );
+    expect(actions.deleteContact( contact )).toEqual({
+      type: types.DELETE_CONTACT,
+      contact
+    });
+  });
+
+  it('editContact should create EDIT_CONTACT action', () => {
+    actions.addContact( contact );
+    let updatedContact = Object.assign(contact, {name: 'Tony Big'});
+    expect(actions.editContact( updatedContact )).toEqual({
+      type: types.EDIT_CONTACT,
+      contact: updatedContact
     });
   });
 });
