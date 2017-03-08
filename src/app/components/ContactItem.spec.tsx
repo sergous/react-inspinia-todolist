@@ -61,11 +61,17 @@ describe('components', () => {
 
       expect(name.type).toBe('h3');
       expect(name.props.className).toBe('m-b-xs');
-      expect(name.props.children).toBe(contact.name);
+
+      const editableName = name.props.children;
+      expect(editableName.props.name).toBe('name');
+      expect(editableName.props.text).toBe(contact.name);
 
       expect(position.type).toBe('div');
       expect(position.props.className).toBe('font-bold');
-      expect(position.props.children).toBe(contact.position);
+
+      const editablePosition = position.props.children;
+      expect(editablePosition.props.name).toBe('position');
+      expect(editablePosition.props.text).toBe(contact.position);
 
       expect(address.type).toBe('address');
       expect(address.props.className).toBe('m-t-md');
@@ -73,15 +79,24 @@ describe('components', () => {
       const [company, address1, address2, phone] = address.props.children;
 
       expect(company.type).toBe('strong');
-      expect(company.props.children).toBe(contact.company);
+
+      const editableCompany = company.props.children;
+      expect(editableCompany.props.name).toBe('company');
+      expect(editableCompany.props.text).toBe(contact.company);
 
       expect(address1.type).toBe('p');
       expect(address1.props.className).toBe('no-margins');
-      expect(address1.props.children).toBe(contact.address1);
+
+      const editableAddress1 = address1.props.children;
+      expect(editableAddress1.props.name).toBe('address1');
+      expect(editableAddress1.props.text).toBe(contact.address1);
 
       expect(address2.type).toBe('p');
       expect(address2.props.className).toBe('no-margins');
-      expect(address2.props.children).toBe(contact.address2);
+
+      const editableAddress2 = address2.props.children;
+      expect(editableAddress2.props.name).toBe('address2');
+      expect(editableAddress2.props.text).toBe(contact.address2);
 
       expect(phone.type).toBe('p');
       expect(phone.props.className).toBe('no-margins');
@@ -91,7 +106,10 @@ describe('components', () => {
       expect(phoneAbbr.type).toBe('abbr');
       expect(phoneAbbr.props.title).toBe('Phone');
       expect(phoneNum.type).toBe('span');
-      expect(phoneNum.props.children).toBe(contact.phone);
+
+      const editablePhoneNum = phoneNum.props.children;
+      expect(editablePhoneNum.props.name).toBe('phone');
+      expect(editablePhoneNum.props.text).toBe(contact.phone);
 
       // Footer
       expect(footer.type).toBe('div');
