@@ -4,6 +4,7 @@ import * as React from 'react';
 import Contact from '../models/contact';
 import EditableTextField from './EditableTextField';
 import {IEditableTextField} from './EditableTextField';
+import * as classnames from 'classnames';
 
 interface IContactItemProps {
   contact: Contact;
@@ -27,18 +28,10 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
     this.state = {
       editing: false
     };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleDoubleClick = this.handleDoubleClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
     this.handleSaveTextField = this.handleSaveTextField.bind(this);
-  }
-
-  handleClick() {
-    this.props.deleteContact(this.props.contact);
-  }
-
-  handleDoubleClick() {
-    this.setState({editing: !this.state.editing});
   }
 
   handleSaveTextField( textfield: IEditableTextField ) {
@@ -48,30 +41,51 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
   }
 
   handleSave( contact: Contact ) {
-    if (!contact.name || contact.name.length === 0) {
-      this.props.deleteContact(this.props.contact);
-    } else {
-      this.props.contact.name = contact.name;
-      this.props.editContact(this.props.contact);
-    }
+    this.props.contact = contact;
+    this.props.editContact(this.props.contact);
+  }
+
+  handleDelete() {
+    this.props.deleteContact(this.props.contact);
+  }
+
+  handleEdit() {
+    this.setState({editing: !this.state.editing});
   }
 
   render() {
     const contact = this.props.contact;
 
     let element = (
-      <div className='contact-box center-version'
-           onDoubleClick={this.handleDoubleClick}>
-        <a>
+      <div className={
+              classnames({
+                'editing': this.state.editing,
+              }) + ' contact-box center-version'}
+           onDoubleClick={this.handleEdit}>
+        <div className='ibox-title'>
+          <div className='ibox-tools'>
+            <a className='btn btn-xs btn-white' onClick={this.handleDelete}>
+              <i className='fa fa-trash'/>
+            </a>
+            <a className={
+                classnames({
+                  'active': this.state.editing,
+                }) + ' btn btn-xs btn-white'}
+               onClick={this.handleEdit}>
+              <i className='fa fa-pencil'/>
+            </a>
+          </div>
+        </div>
+        <a className='no-padding-top'>
           <img alt={contact.name} className='img-circle' src={contact.photo_url} />
-          <h3 className='m-b-xs'>
+          {contact.name && <h3 className='m-b-xs'>
             <EditableTextField
               text={contact.name}
               name='name'
               editing={this.state.editing}
               onSave={this.handleSaveTextField}
             />
-          </h3>
+          </h3>}
           {contact.position && <div className='font-bold'>
             <EditableTextField
               text={contact.position}
