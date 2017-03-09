@@ -59,7 +59,7 @@ class EditableTextField extends React.Component<IEditableTextFieldProps, IEditab
   render() {
     return (
       <span onClick={this.handleClick}>
-        {this.state.editing
+        {this.state.editing || this.props.editing
           ? <input
               className='edit'
               type='text'

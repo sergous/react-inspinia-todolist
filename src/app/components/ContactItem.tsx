@@ -28,12 +28,17 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
       editing: false
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleDoubleClick = this.handleDoubleClick.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleSaveTextField = this.handleSaveTextField.bind(this);
   }
 
   handleClick() {
     this.props.deleteContact(this.props.contact);
+  }
+
+  handleDoubleClick() {
+    this.setState({editing: !this.state.editing});
   }
 
   handleSaveTextField( textfield: IEditableTextField ) {
@@ -55,13 +60,15 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
     const contact = this.props.contact;
 
     let element = (
-      <div className='contact-box center-version'>
+      <div className='contact-box center-version'
+           onDoubleClick={this.handleDoubleClick}>
         <a>
           <img alt={contact.name} className='img-circle' src={contact.photo_url} />
           <h3 className='m-b-xs'>
             <EditableTextField
               text={contact.name}
               name='name'
+              editing={this.state.editing}
               onSave={this.handleSaveTextField}
             />
           </h3>
@@ -69,6 +76,7 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
             <EditableTextField
               text={contact.position}
               name='position'
+              editing={this.state.editing}
               onSave={this.handleSaveTextField}
             />
           </div>}
@@ -77,6 +85,7 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
               <EditableTextField
                 text={contact.company}
                 name='company'
+                editing={this.state.editing}
                 onSave={this.handleSaveTextField}
               />
             </strong>}
@@ -84,6 +93,7 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
               <EditableTextField
                 text={contact.address1}
                 name='address1'
+                editing={this.state.editing}
                 onSave={this.handleSaveTextField}
               />
             </p>}
@@ -91,6 +101,7 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
               <EditableTextField
                 text={contact.address2}
                 name='address2'
+                editing={this.state.editing}
                 onSave={this.handleSaveTextField}
               />
             </p>}
@@ -99,6 +110,7 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
               <EditableTextField
                 text={contact.phone}
                 name='phone'
+                editing={this.state.editing}
                 onSave={this.handleSaveTextField}
               />
             </span></p>}
