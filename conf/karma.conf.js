@@ -25,7 +25,7 @@ module.exports = function (config) {
         'webpack'
       ]
     },
-    reporters: ['progress', 'coverage'],
+    reporters: ['dots', 'coverage'],
     coverageReporter: {
       type: 'html',
       dir: 'coverage/'
