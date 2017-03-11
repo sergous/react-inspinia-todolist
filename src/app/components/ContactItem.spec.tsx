@@ -1,13 +1,12 @@
 import * as React from 'react';
 import * as TestUtils from 'react-addons-test-utils';
 import ContactItem from './ContactItem';
-import Contact from '../models/contact';
 import {initialContact as contact} from '../models/contact';
+import EditableTextField from './EditableTextField';
 
 function setup(editing: boolean = false) {
   const props = {
     contact: contact,
-    // todo: edit form
     editContact: jasmine.createSpy('editContact'),
     deleteContact: jasmine.createSpy('deleteContact'),
   };
@@ -20,17 +19,22 @@ function setup(editing: boolean = false) {
 
   let output = renderer.getRenderOutput();
 
-  // todo: add editing
-  // if (editing) {
-  //   const label = output.props.children.props.children[1];
-  //   label.props.onDoubleClick({});
-  //   output = renderer.getRenderOutput();
-  // }
+  const [trashButton, editButton] = output.props.children.props.children[0].props.children.props.children;
+
+  if (editing) {
+    editButton.props.onClick({});
+    output = renderer.getRenderOutput();
+  }
+
+  const nameTextField = output.props.children.props.children[1].props.children[1].props.children;
 
   return {
     props,
     output,
-    renderer
+    renderer,
+    trashButton,
+    editButton,
+    nameTextField
   };
 }
 
@@ -48,7 +52,28 @@ describe('components', () => {
       expect(contactBox.props.className).toContain('contact-box');
       expect(contactBox.props.className).toContain('center-version');
 
-      const [a, footer] = contactBox.props.children;
+      const [iboxTitle, a, footer] = contactBox.props.children;
+      expect(iboxTitle.type).toBe('div');
+      expect(iboxTitle.props.className).toBe('ibox-title');
+
+      const iboxTools = iboxTitle.props.children;
+      expect(iboxTools.type).toBe('div');
+      expect(iboxTools.props.className).toBe('ibox-tools');
+
+      const [trashButton, pencilButton] = iboxTools.props.children;
+      expect(trashButton.type).toBe('a');
+      expect(trashButton.props.className).toContain('btn-white');
+
+      const trashIcon = trashButton.props.children;
+      expect(trashIcon.type).toBe('i');
+      expect(trashIcon.props.className).toContain('fa-trash');
+
+      expect(pencilButton.type).toBe('a');
+      expect(pencilButton.props.className).toContain('btn-white');
+
+      const pencilIcon = pencilButton.props.children;
+      expect(pencilIcon.type).toBe('i');
+      expect(pencilIcon.props.className).toContain('fa-pencil');
 
       expect(a.type).toBe('a');
 
@@ -63,6 +88,7 @@ describe('components', () => {
       expect(name.props.className).toBe('m-b-xs');
 
       const editableName = name.props.children;
+      expect(editableName.type).toBe(EditableTextField);
       expect(editableName.props.name).toBe('name');
       expect(editableName.props.text).toBe(contact.name);
 
@@ -70,6 +96,7 @@ describe('components', () => {
       expect(position.props.className).toBe('font-bold');
 
       const editablePosition = position.props.children;
+      expect(editablePosition.type).toBe(EditableTextField);
       expect(editablePosition.props.name).toBe('position');
       expect(editablePosition.props.text).toBe(contact.position);
 
@@ -81,6 +108,7 @@ describe('components', () => {
       expect(company.type).toBe('strong');
 
       const editableCompany = company.props.children;
+      expect(editableCompany.type).toBe(EditableTextField);
       expect(editableCompany.props.name).toBe('company');
       expect(editableCompany.props.text).toBe(contact.company);
 
@@ -88,6 +116,7 @@ describe('components', () => {
       expect(address1.props.className).toBe('no-margins');
 
       const editableAddress1 = address1.props.children;
+      expect(editableAddress1.type).toBe(EditableTextField);
       expect(editableAddress1.props.name).toBe('address1');
       expect(editableAddress1.props.text).toBe(contact.address1);
 
@@ -95,6 +124,7 @@ describe('components', () => {
       expect(address2.props.className).toBe('no-margins');
 
       const editableAddress2 = address2.props.children;
+      expect(editableAddress2.type).toBe(EditableTextField);
       expect(editableAddress2.props.name).toBe('address2');
       expect(editableAddress2.props.text).toBe(contact.address2);
 
@@ -108,6 +138,7 @@ describe('components', () => {
       expect(phoneNum.type).toBe('span');
 
       const editablePhoneNum = phoneNum.props.children;
+      expect(editablePhoneNum.type).toBe(EditableTextField);
       expect(editablePhoneNum.props.name).toBe('phone');
       expect(editablePhoneNum.props.text).toBe(contact.phone);
 
@@ -148,55 +179,61 @@ describe('components', () => {
 
     });
 
-    xit('button onClick should call deleteContact', () => {
-      const {output, props} = setup();
-      const button = output.props.children.props.children[2];
-      button.props.onClick({});
-      // expect(props.deleteContact).toHaveBeenCalledWith(props.contact);
+    it('trash button onClick should call deleteContact', () => {
+      const {props, trashButton} = setup();
+      trashButton.props.onClick({});
+
+      expect(props.deleteContact).toHaveBeenCalledWith(props.contact);
     });
 
-    xit('label onDoubleClick should put component in edit state', () => {
-      const {output, renderer} = setup();
-      const label = output.props.children.props.children[1];
-      label.props.onDoubleClick({});
+    it('edit pencil button onClick should put component in edit state', () => {
+      const {renderer, editButton} = setup();
+      editButton.props.onClick({});
       const updated = renderer.getRenderOutput();
-      expect(updated.type).toBe('li');
-      expect(updated.props.className).toBe('editing');
+      const nameTextField = updated.props.children.props.children[1].props.children[1].props.children;
+
+      expect(nameTextField.type).toBe(EditableTextField);
+      expect(nameTextField.props.name).toBe('name');
+      expect(nameTextField.props.editing).toBe(true);
+      expect(nameTextField.props.text).toBe(contact.name);
     });
   });
 
-  xdescribe('ContactItem', () => {
+  describe('ContactItem', () => {
     it('edit state render', () => {
-      const {output} = setup(true);
+      const {output, nameTextField} = setup(true);
 
-      expect(output.type).toBe('li');
-      expect(output.props.className).toBe('editing');
-
-      const input = output.props.children;
-      // todo: add contact edit form
-      // expect(input.type).toBe(ContactTextInput);
-      expect(input.props.name).toBe(contact.name);
-      expect(input.props.editing).toBe(true);
+      expect(output.type).toBe('div');
+      expect(output.props.children.props.className).toContain('editing');
+      expect(nameTextField.type).toBe(EditableTextField);
+      expect(nameTextField.props.name).toBe('name');
+      expect(nameTextField.props.text).toBe(contact.name);
+      expect(nameTextField.props.editing).toBe(true);
     });
 
-    it('ContactTextInput onSave should call editContact', () => {
-      const {output, props} = setup(true);
-      output.props.children.props.onSave(new Contact({name: 'Updated Name'}));
-      // expect(props.editContact).toHaveBeenCalledWith(props.contact);
+    it('EditableTextField onSave should call editContact', () => {
+      const {props, nameTextField} = setup(true);
+      nameTextField.props.onSave({name: 'name', text: 'Updated Name'});
+
+      expect(props.editContact).toHaveBeenCalledWith(props.contact);
     });
 
-    it('ContactTextInput onSave should call deleteContact if text is empty', () => {
-      const {output, props} = setup(true);
-      output.props.children.props.onSave('');
-      // expect(props.deleteContact).toHaveBeenCalledWith(props.contact);
-    });
-
-    it('ContactTextInput onSave should exit component from edit state', () => {
-      const {output, renderer} = setup(true);
-      output.props.children.props.onSave(contact.name);
+    it('EditableTextField onSave should exit component from edit state', () => {
+      const {renderer, editButton} = setup(true);
+      editButton.props.onClick({});
       const updated = renderer.getRenderOutput();
-      expect(updated.type).toBe('li');
-      expect(updated.props.className).toBe('');
+      const div = updated.props.children;
+
+      expect(div.props.className).not.toBe('editing');
+    });
+
+    it('EditableTextField onSave should hide field if text is empty', () => {
+      const {renderer, nameTextField} = setup(true);
+      nameTextField.props.onSave({name: 'name',  text: ''});
+      const updated = renderer.getRenderOutput();
+      const h3 = updated.props.children.props.children[1].props.children[1];
+
+      expect(h3).toBe('');
     });
   });
 });
