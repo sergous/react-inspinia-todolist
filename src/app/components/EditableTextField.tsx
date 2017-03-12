@@ -38,12 +38,13 @@ class EditableTextField extends React.Component<IEditableTextFieldProps, IEditab
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   handleSubmit(e: any) {
     const text = e.target.value.trim();
     if (e.which === 13) {
-      this.props.onSave( {text: text, name: this.props.name} );
+      this.props.onSave({text: text, name: this.props.name});
       this.setState({text: text, editing: !this.state.editing});
     }
   }
@@ -52,14 +53,31 @@ class EditableTextField extends React.Component<IEditableTextFieldProps, IEditab
     this.setState({text: e.target.value});
   }
 
+  handleBlur(e: any) {
+    const text = e.target.value.trim();
+    if (!this.props.editing) {
+      this.props.onSave({text, name: this.props.name});
+      this.setState({text, editing: !this.state.editing});
+    }
+  }
+
   handleClick(e: any) {
-    this.setState({text: this.state.text, editing: !this.state.editing});
+    if (!this.props.editing) {
+      this.setState({text: this.state.text, editing: !this.state.editing});
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const text = this.state.text;
+    if (nextProps.editing !== this.state.editing) {
+      this.setState({ text, editing: nextProps.editing });
+    }
   }
 
   render() {
     return (
       <span onClick={this.handleClick}>
-        {this.state.editing || this.props.editing
+        {this.state.editing
           ? <input
               className='edit'
               type='text'
@@ -69,6 +87,7 @@ class EditableTextField extends React.Component<IEditableTextFieldProps, IEditab
               value={this.state.text}
               onChange={this.handleChange}
               onKeyDown={this.handleSubmit}
+              onBlur={this.handleBlur}
             />
           : this.state.text
         }

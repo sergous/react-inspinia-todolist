@@ -60,11 +60,11 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
       <div className={
               classnames({
                 'editing': this.state.editing,
-              }) + ' contact-box center-version'}
-           onDoubleClick={this.handleEdit}>
+              }) + ' contact-box center-version'} >
         <div className='ibox-title'>
           <div className='ibox-tools'>
-            <a className='btn btn-xs btn-white' onClick={this.handleDelete}>
+            <a className='btn btn-xs btn-white'
+               onClick={this.handleDelete}>
               <i className='fa fa-trash'/>
             </a>
             <a className={
