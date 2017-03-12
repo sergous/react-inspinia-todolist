@@ -92,8 +92,8 @@ describe('components', () => {
         const updated = renderer.getRenderOutput();
         //noinspection TypeScriptValidateJSTypes
         updated.props.children.props.onKeyDown({which: 13, target: {value: ''}});
-        const updated = renderer.getRenderOutput();
-        expect(updated.props.children.type).not.toEqual('input');
+        const updated2 = renderer.getRenderOutput();
+        expect(updated2.props.children.type).not.toEqual('input');
       });
 
       it('should hide on return key press if empty', () => {
@@ -102,8 +102,8 @@ describe('components', () => {
         const updated = renderer.getRenderOutput();
         //noinspection TypeScriptValidateJSTypes
         updated.props.children.props.onKeyDown({which: 13, target: {value: ''}});
-        const updated = renderer.getRenderOutput();
-        expect(updated.props.children).toEqual('');
+        const updated2 = renderer.getRenderOutput();
+        expect(updated2.props.children).toEqual('');
       });
 
       it('should call onSave on blur', () => {
@@ -112,7 +112,6 @@ describe('components', () => {
         const updated = renderer.getRenderOutput();
         //noinspection TypeScriptValidateJSTypes
         updated.props.children.props.onBlur({target: {value: 'Updated Name'}});
-        const updated = renderer.getRenderOutput();
         expect(props.onSave).toHaveBeenCalledWith( {text: 'Updated Name', name: props.name} );
       });
 
@@ -122,8 +121,8 @@ describe('components', () => {
         const updated = renderer.getRenderOutput();
         //noinspection TypeScriptValidateJSTypes
         updated.props.children.props.onBlur({target: {value: 'Updated Name'}});
-        const updated = renderer.getRenderOutput();
-        expect(updated.props.children).toBe('Updated Name');
+        const updated2 = renderer.getRenderOutput();
+        expect(updated2.props.children).toBe('Updated Name');
       });
     });
   });

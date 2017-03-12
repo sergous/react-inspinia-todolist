@@ -78,68 +78,76 @@ class ContactItem extends React.Component<IContactItemProps, IContactItemState> 
         </div>
         <a className='no-padding-top'>
           <img alt={contact.name} className='img-circle' src={contact.photo_url} />
-          {contact.name && <h3 className='m-b-xs'>
+          {(contact.name || this.state.editing) && <h3 className='m-b-xs'>
             <EditableTextField
               text={contact.name}
               name='name'
+              placeholder='Full Name'
               editing={this.state.editing}
               onSave={this.handleSaveTextField}
             />
           </h3>}
-          {contact.position && <div className='font-bold'>
+          {(contact.position || this.state.editing) && <div className='font-bold'>
             <EditableTextField
               text={contact.position}
               name='position'
+              placeholder='Position'
               editing={this.state.editing}
               onSave={this.handleSaveTextField}
             />
           </div>}
           <address className='m-t-md'>
-            {contact.company && <strong>
+            {(contact.company || this.state.editing) && <strong>
               <EditableTextField
                 text={contact.company}
                 name='company'
+                placeholder='Company Name'
                 editing={this.state.editing}
                 onSave={this.handleSaveTextField}
               />
             </strong>}
-            {contact.address1 && <p className='no-margins'>
+            {(contact.address1 || this.state.editing) && <p className='no-margins'>
               <EditableTextField
                 text={contact.address1}
                 name='address1'
+                placeholder='Address line 1'
                 editing={this.state.editing}
                 onSave={this.handleSaveTextField}
               />
             </p>}
-            {contact.address2 && <p className='no-margins'>
+            {(contact.address2 || this.state.editing) && <p className='no-margins'>
               <EditableTextField
                 text={contact.address2}
                 name='address2'
+                placeholder='Address line 2'
                 editing={this.state.editing}
                 onSave={this.handleSaveTextField}
               />
             </p>}
-            {contact.phone && <p className='no-margins'>
+            {(contact.phone || this.state.editing) && <p className='no-margins'>
               <abbr title='Phone'>P: </abbr><span>
               <EditableTextField
                 text={contact.phone}
                 name='phone'
+                placeholder='Phone Number'
                 editing={this.state.editing}
                 onSave={this.handleSaveTextField}
               />
             </span></p>}
           </address>
         </a>
-        <div className='contact-box-footer'>
-          <div className='m-t-xs btn-group'>
-            {contact.phone && <a className='btn btn-xs btn-white' href={`tel:${contact.phone}`}>
-              <i className='fa fa-phone'></i> Call </a>}
-            {contact.email && <a className='btn btn-xs btn-white' href={`mailto:${contact.email}`}>
-              <i className='fa fa-envelope'></i> Email</a>}
-            {contact.twitter && <a className='btn btn-xs btn-white' href={`http://twitter.com/${contact.twitter}`}>
-              <i className='fa fa-user-plus'></i> Follow</a>}
+        {(contact.phone || contact.email || contact.twitter) &&
+          <div className='contact-box-footer'>
+            <div className='m-t-xs btn-group'>
+              {contact.phone && <a className='btn btn-xs btn-white' href={`tel:${contact.phone}`}>
+                <i className='fa fa-phone'></i> Call </a>}
+              {contact.email && <a className='btn btn-xs btn-white' href={`mailto:${contact.email}`}>
+                <i className='fa fa-envelope'></i> Email</a>}
+              {contact.twitter && <a className='btn btn-xs btn-white' href={`http://twitter.com/${contact.twitter}`}>
+                <i className='fa fa-user-plus'></i> Follow</a>}
+            </div>
           </div>
-        </div>
+        }
       </div>
     );
 

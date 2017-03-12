@@ -233,7 +233,7 @@ describe('components', () => {
       const updated = renderer.getRenderOutput();
       const h3 = updated.props.children.props.children[1].props.children[1];
 
-      expect(h3).toBe('');
+      expect(h3).toBeFalsy();
     });
   });
 });

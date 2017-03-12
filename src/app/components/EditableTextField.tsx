@@ -67,7 +67,7 @@ class EditableTextField extends React.Component<IEditableTextFieldProps, IEditab
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: IEditableTextFieldProps) {
     const text = this.state.text;
     if (nextProps.editing !== this.state.editing) {
       this.setState({ text, editing: nextProps.editing });
