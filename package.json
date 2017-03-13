@@ -70,7 +70,8 @@
     "tslint": "^3.2.1",
     "typescript": "^2.0.2",
     "typings": "^1.0.4",
-    "tslint-loader": "^2.1.0"
+    "tslint-loader": "^2.1.0",
+    "redux-devtools-extension": "^2.13.0"
   },
   "scripts": {
     "build": "gulp",
